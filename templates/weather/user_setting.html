@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+{#        <label class="pt-2" style="display: block" for="token_input">API Token</label>#}
+{#        <div class="col-lg-3 pb-lg-0 row pb-sm-1">#}
+{#            <input type="text" value="{{ TOKEN}}" id="token_input" readonly>#}
+{#        </div>#}
+{#        <div class="col-lg-3 pb-lg-0 row pb-sm-1">#}
+{#            <button class="btn btn-primary" onclick="copy_token()">Copy text</button>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="row">
+        <div class="input-group col-lg-4 my-3">
+            <label class="pt-2" for="token_input">API Token: </label>
+            <input type="text" class="form-control ml-2" value="{{ token}}" id="token_input" readonly aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" onclick="copy_token()" id="button-addon2">Copy to clipboard</button>
+        </div>
+    </div>
+    <div>
+    <p>example:</p>
+    <code>
+        curl -H "Authorization: Token {{ token}}" http://127.0.0.1:8000/api/cities/
+    </code>
+    </div>
+    <hr>
+
+{#    <div class="row">#}
+{#        <form method="POST">#}
+{#            {% csrf_token %}#}
+{#                <div class="col-lg-4 pb-lg-0 row pb-sm-1">#}
+{#                    {{ form.email|as_crispy_field }}#}
+{#                </div>#}
+{#                <div class="col-lg-1 pb-lg-0 row pb-sm-1">#}
+{#                    <button type="submit" class="btn btn-primary" value="Add">edit</button>#}
+{#                </div>#}
+{#        </form>#}
+{#    <p>*Данный email для оповещений. Для Авторизации используетсья введенный н</p>#}
+{#    </div>#}
+
+    <script>
+        function copy_token() {
+          var copyText = document.getElementById("token_input");
+          copyText.select();
+          copyText.setSelectionRange(0, 99999)
+          document.execCommand("copy");
+          alert("Token copied to clipboard");
+        }
+    </script>
+{% endblock %}

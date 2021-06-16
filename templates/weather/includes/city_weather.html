@@ -1,0 +1,37 @@
+{% load static %}
+
+<div class="col">
+    <div class="card text-center" style="width: 18rem;">
+        <div class="card-header">
+            <div class="card-title text fs-2">
+                <p>{{ weather.city_name }}</p>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-text fs-2">
+                 <span class="icon"><img class="img-fluid" src="http://openweathermap.org/img/w/{{ weather.icon }}.png" /></span>
+                {{ weather.temperature }}<sup>&deg;</sup>C
+            </div>
+            <div class="card-text-end">
+                {{ weather.description }}
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+
+                    <div class="col-4">
+                        <form method="GET" action="{% url 'weather:city_update' pk=weather.subs_id %}">
+                            {% csrf_token %}<input type="submit" value="EDIT" class="btn btn-warning">
+                        </form>
+                    </div>
+
+                    <div class="col-4">
+                    <form method="POST" action="{% url 'weather:city_delete' pk=weather.subs_id %}">
+                        {% csrf_token %}<input type="submit" value="DELETE" class="btn btn-danger">
+                    </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
